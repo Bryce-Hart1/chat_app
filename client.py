@@ -2,9 +2,9 @@ import socket
 import random
 
 
-server_IP: str = input("Please enter a serverIP, or enter for enter for localhost")
+client_IP: str = input("Please enter a serverIP, or enter for enter for localhost")
 
-if server_IP == "":
+if client_IP == "":
     server_IP = 'localhost'
 
 
@@ -23,7 +23,7 @@ while True:
 
 
 
-requested_username: str = input("Please enter a username")
+requested_username: str = input("Please enter a username: ")
 
 if requested_username == "":
     random_appended: int = random.randint(100, 999)
@@ -37,8 +37,8 @@ client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 #take the port and run checks while setting up socket
 try:
-    client_socket.connect((server_IP, port))
-    print(f"Connected to server at {server_IP} | {port}")
+    client_socket.connect((client_IP, port))
+    print(f"Connected to server at {client_IP} | {port}")
 except ConnectionRefusedError:
     print("Connection refused. Make sure the server program is running.")
     client_socket.close()
@@ -51,7 +51,7 @@ except OSError as e:
 
 # Receive server's username first
 server_username = client_socket.recv(1024).decode()
-print(f"Connected! Chatting with {server_username}")
+print(f"Connected! Chatting with {server_username}") # now we bring in servers username and display
 
 # Send client's username to server
 client_socket.send(requested_username.encode())
