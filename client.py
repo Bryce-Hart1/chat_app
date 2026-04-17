@@ -2,10 +2,13 @@ import socket
 import random
 
 
+LOCAL_HOST: str = '127.0.0.1'
+
+
 client_IP: str = input("Please enter a serverIP, or enter for enter for localhost")
 
 if client_IP == "":
-    server_IP = 'localhost'
+    server_IP = LOCAL_HOST
 
 
 
@@ -15,6 +18,7 @@ while True:
     if port_input == "":
         port: int = 8080 #if its not a valid port, default
         print("Valid port was not entered, defaulted to port 8080") 
+        break
     elif port_input.isdigit() and 1024 <= int(port_input) <= 65535: #has to be between if not:
         port: int = int(port_input) 
         break

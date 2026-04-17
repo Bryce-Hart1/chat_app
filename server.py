@@ -47,10 +47,15 @@ server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 try:
     server_socket.bind((server_IP, port))
     server_socket.listen(1)  # 1, since only expecting one client
-    print(f"Server listening on {server_IP} | {port_input}")
-except OSError as e:
+    print(f"Server listening on {server_IP} | {port}")
+except OSError as exc:
     print("Failed, please retry.")
-    print(f"Error is {e}")
+    print(f"Error is {exc}")
+    server_socket.close()
+    exit()
+except KeyboardInterrupt as exc:
+    print("Failed, please retry.")
+    print(f"Error is {exc}")
     server_socket.close()
     exit()
 
