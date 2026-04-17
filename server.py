@@ -5,6 +5,8 @@ import socket
 MAX_RECV: int = 1024
 
 LOCAL_HOST: str = '127.0.0.1'
+DEFAULT_PORT: int = 8080
+
 
 server_IP: str = input("Please enter a server IP (or press Enter for localhost): \n").strip()
 
@@ -17,7 +19,7 @@ if server_IP == "":
 while True: 
     port_input: int = input("Please enter a port number: ")
     if port_input == "":
-        port: int = 8080 #if its not a valid port, default
+        port: int = DEFAULT_PORT #if its not a valid port, default
         print("Valid port was not entered, defaulted to 8080")
         break
     elif port_input.isdigit() and 1024 <= int(port_input) <= 65535:
@@ -47,7 +49,7 @@ server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 try:
     server_socket.bind((server_IP, port))
     server_socket.listen(1)  # 1, since only expecting one client
-    print(f"Server listening on {server_IP} | {port}")
+    print(f"Server listening on {server_IP} | {port} \n")
 except OSError as exc:
     print("Failed, please retry.")
     print(f"Error is {exc}")
